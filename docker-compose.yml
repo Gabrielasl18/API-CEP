@@ -1,0 +1,23 @@
+services:
+  go-api-cep:
+    build: .
+    command: sh -c "./go-api-cep"
+    volumes:
+      - .:/app
+    ports:
+      - "8888:8080"
+      - "9394:9394"
+    links:
+      - mysql
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql/mysql-server:latest
+    ports:
+      - "3306:3306"  
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ceps_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root  
